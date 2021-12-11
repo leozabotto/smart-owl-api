@@ -1,0 +1,164 @@
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<style>
+  td {
+    font-size: 8pt !important;
+  }
+
+  th {
+    font-size: 8pt !important;
+  }
+</style>
+
+<body>
+  <div class="row" style="padding-top: 40px;">
+    <div class="col s6">
+      <img 
+        src="https://i.imgur.com/FgjIrPL.png" 
+        alt="Logo Smart Owl" class="responsive-img" 
+        style="width: 60%; height: auto;"
+      >
+    </div>   
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <h6>FICHA DO CANDIDATO</h6>
+      <hr />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Dados do Candidato</th>
+            <th></th>           
+          </tr>
+        </thead>
+
+        <tbody>         
+          
+          <tr>
+            <td>
+              <strong>Nome:</strong>
+              <td><%= matricula.candidato.nome %></td>           
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>E-mail:</strong>
+            </td>
+            <td><%= matricula.candidato.email %></td>           
+          </tr>
+          <tr>
+            <td>
+              <strong>Telefone:</strong>
+            </td>
+            <td><%= matricula.candidato.telefone_residencial %></td>           
+          </tr>
+          <tr>          
+            <td><strong>Celular:</strong></td>
+            <td><%= matricula.candidato.celular %></td>                     
+          </tr>
+          <tr>          
+            <td><strong>Turma:</strong></td>
+            <td><%= matricula.turma.nome %></td>                     
+          </tr>
+          <tr>
+            <td>
+              <strong>Escolaridade</strong>
+            </td>
+            <td><%= matricula.candidato.escolaridade %></td>           
+          </tr>
+          <tr>
+            <td>
+              <strong>CPF:</strong>
+            </td>
+            <td><%= matricula.candidato.cpf %></td> 
+          </tr>
+          <tr>
+            <td>
+              <strong>RG:</strong>
+            </td>
+            <td><%= matricula.candidato.rg %></td>           
+          </tr>   
+          <tr>
+            <td>
+              <strong>Nascimento:</strong>
+            </td>
+            <td><%= nascimento %></td>           
+          </tr>    
+          <tr>
+            <td>
+              <strong>Gênero:</strong>
+            </td>
+            <td><%= matricula.candidato.genero %></td>           
+          </tr>               
+          <tr>
+            <td>
+              <strong>Cor/Raça:</strong>
+            </td>
+            <td><%= matricula.candidato.cor_raca %></td>           
+          </tr>
+          <tr>
+            <td>
+              <strong>Nome da Mãe</strong>
+              <td><%= matricula.candidato.nome_mae %></td>           
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Nome do Pai</strong>
+            </td>
+            <td><%= matricula.candidato.nome_pai %></td>           
+          </tr>              
+          <tr>
+            <td>
+              <strong>CEP</strong>
+            </td>
+            <td><%= matricula.candidato.cep %></td>           
+          </tr>              
+          <tr>
+            <td>
+              <strong>Logradouro</strong>
+            </td>
+            <td><%= matricula.candidato.logradouro %></td>           
+          </tr>              
+          <tr>
+            <td>
+              <strong>Nº</strong>
+            </td>
+            <td><%= matricula.candidato.numero %></td>           
+          </tr>              
+          <tr>
+            <td>
+              <strong>Complemento</strong>
+            </td>
+            <td><%= matricula.candidato.complemento %></td>           
+          </tr>              
+          <tr>
+            <td>
+              <strong>Bairro</strong>
+            </td>
+            <td><%= matricula.candidato.bairro %></td>           
+          </tr>              
+          <tr>
+            <td>
+              <strong>Cidade</strong>
+            </td>
+            <td><%= matricula.candidato.municipio %></td>           
+          </tr>              
+          <tr>
+            <td>
+              <strong>Estado</strong>
+            </td>
+            <td><%= matricula.candidato.uf %></td>           
+          </tr>                                     
+        </tbody>
+      </table>
+    </div>
+  </div>      
+</body>
