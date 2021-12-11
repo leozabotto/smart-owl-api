@@ -9,9 +9,9 @@ const Turma = require('./Turma');
 const Login = require('./Login');
 const Candidato = require('./Candidato')
 const Inscricao = require('./Inscricao')
-// const Questoes = require('./Questoes')
-// const Tema_redacao = require('./Tema_redacao')
-const route = require('./Inscricao');
+const Matricula = require('./Matricula')
+const route = require('./Inscricao')
+const Actions = require('./Actions');
 
 routes.use(Administrador);
 
@@ -21,7 +21,8 @@ routes.use(Turma)
 routes.use(Login)
 routes.use(Candidato)
 routes.use(Inscricao)
-// route.use(Questoes)
-// route.use(Tema_redacao)
+routes.use(Matricula)
+routes.use(Actions)
+
 
 module.exports = routes;

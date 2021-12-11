@@ -45,9 +45,6 @@ module.exports = {
         data_resultado,
       }
 
-      if(!checkEmptyFields(data)) {        
-        return res.status(400).send({ mensagem: "Preencha todos os campos obrigatórios!"});
-      }
 
       const turma = await Turma.create({ ...data });
       return res.status(200).json(turma);
@@ -182,4 +179,31 @@ module.exports = {
       return res.status(400).json(err);
     }
   },
+
+  async handleChangeStatus(req, res) {
+    try {
+      const { id, status } = req.body;
+
+      const turma = await Turma.findOne({
+        where: {
+          id,
+        }
+      });   
+
+      if(turma === null || !turma) {
+        return res.status(404).send({ mensagem: "Turma não encontrada!"});
+      }    
+
+      turma.status = status;
+
+      await turma.save();
+
+      return res.status(200).send(turma);
+
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json(err);
+    }
+  },
+
 }

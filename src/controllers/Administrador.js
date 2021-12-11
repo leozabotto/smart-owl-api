@@ -4,7 +4,7 @@ const {
   PermissoesAdmin,
 } = require('../database/models');
 
-//const connection = require('../database/connection');
+const connection = require('../database/connection');
 
 const bcrypt = require('bcrypt');
 
@@ -22,7 +22,6 @@ module.exports = {
         nome,
         email,
         senha,        
-        super_usuario
       } = req.body;
 
       const emailUsado = await Administrador.findOne({
@@ -42,7 +41,7 @@ module.exports = {
       }
 
       const permissoes = {
-        super_usuario,
+        super_usuario: true
       }
 
       if (!checkEmptyFields(data)) {
@@ -54,6 +53,7 @@ module.exports = {
 
       data.senha = hash;
     
+      console.log(data)
       const administrador = await Administrador.create(data, { transaction, });
 
       permissoes.administradorId = administrador.id;
@@ -62,16 +62,16 @@ module.exports = {
 
       await transaction.commit();
 
-      return res.status(200).json({ administrador, permissoes_administrador });
+      return res.status(200).json(administrador);
 
     } catch (err) {
       transaction.rollback();
+      console.log(err)
       return res.status(400).json(err);
     }
   },
 
-  
-  async handleEdit(req, res){
+  /*async handleEdit(req, res){
     try {
       const { id } = req.params;
 
@@ -134,11 +134,11 @@ module.exports = {
       console.log(err);
       return res.status(400).json(err);
     }
-  },
+  },*/
 
   async handleFindAll(req, res){
     try {
-      const usuarios = await Usuario.findAll();
+      const usuarios = await Administrador.findAll();
       res.status(200).send(usuarios);
     } catch (err){
       console.log(err);
@@ -150,7 +150,7 @@ module.exports = {
     try {
       const { id } = req.params;
 
-      const usuario = await Usuario.findOne({
+      const usuario = await Administrador.findOne({
         where: {
           id,
         }
@@ -167,22 +167,4 @@ module.exports = {
       res.status(400).json(err);
     }
   },
-
-  async handleDelete(req, res){
-    try{
-      const { id } = req.params;
-
-      await AdminUser.destroy({
-        where : {
-          id,
-        }
-      })
-
-      res.sendStatus(200)
-
-    }catch (err) {
-      res.sendStatus(400)
-    }
-  }
-
 }

@@ -12,7 +12,7 @@ process.env['DB_PASS'], {
 
 async function testConn() {
   try {   
-    //await sequelize.sync({ alter: true });
+    // await sequelize.sync({ force: true });
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
   } catch (error) {

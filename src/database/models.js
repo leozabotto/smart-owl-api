@@ -202,14 +202,6 @@ const Turma = connection.define('turma', {
   paranoid: true,
 });
 
-const AdminUnidade = connection.define('admin_unidade', {
-  id: {
-    type: Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4,
-    primaryKey: true
-  },
-});
-
 const Candidato = connection.define('candidato', {
   id: {
     type: Sequelize.UUID,
@@ -311,113 +303,12 @@ const Candidato = connection.define('candidato', {
   paranoid: true
 })
 
-const Tema_redacao = connection.define('tema_redacao', {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true
-  },
-  titulo: {
-    type: Sequelize.STRING,
-    allowNull: true
-  },
-  enunciado: {
-    type: Sequelize.STRING,
-    allowNull: true
-  },
-  ativo: {
-    type: Sequelize.BOOLEAN,
-    allowNull: true
-  }
-})
-
-const Questoes = connection.define('questoes', {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true
-  },
-  enunciado: {
-    type:Sequelize.STRING,
-    allowNull: true
-  },
-  dificuldade: {
-    type:Sequelize.STRING,
-    allowNull: true
-  },
-  disciplina: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  correta: {
-    type:Sequelize.STRING,
-    allowNull: true
-  },
-  alt_A: {
-    type:Sequelize.STRING,
-    allowNull: false
-  },
-  alt_B: {
-    type:Sequelize.STRING,
-    allowNull: false
-  },
-  alt_C: {
-    type:Sequelize.STRING,
-    allowNull: false
-  },
-  alt_D: {
-    type:Sequelize.STRING,
-    allowNull: false
-  },
-  alt_E: {
-    type:Sequelize.STRING,
-    allowNull: false
-  },
-  ativo: {
-    type: Sequelize.BOOLEAN,
-    allowNull: true
-  }
-
-})
-
-const Documentos = connection.define('documentos', {
-  id: {
-    type: Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4,
-    primaryKey: true
-  },
-  rg_frente: {
-    type: Sequelize.STRING,
-    allowNull: true
-  },
-  rg_verso: {
-    type: Sequelize.STRING,
-    allowNull: true
-  },
-  comp_endereco: {
-    type: Sequelize.STRING,
-    allowNull: true
-  },
-  comp_escolar: {
-    type: Sequelize.STRING,
-    allowNull: true
-  }
-})
-
 const Inscricao = connection.define('inscricao', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  nota_prova: {
-    type: Sequelize.FLOAT,
-    allowNull: true,
-  },
-  nota_redacao: {
-    type: Sequelize.FLOAT,
-    allowNull: true,
-  },  
   status: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -430,12 +321,21 @@ const Inscricao = connection.define('inscricao', {
   }
 }, { initialAutoIncrement: 202101, freezeTableName: true })
 
+const SolicitacoesMatricula = connection.define('solicitacoes_matricula', {
+  id: {
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    primaryKey: true
+  },
+  status: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: ''
+  }
+});
 
 Administrador.hasOne(PermissoesAdmin);
 PermissoesAdmin.belongsTo(Administrador);
-
-Administrador.belongsToMany(Unidade, { through: AdminUnidade });
-Unidade.belongsToMany(Administrador, { through: AdminUnidade });
 
 Unidade.hasMany(Turma);
 Turma.belongsTo(Unidade);
@@ -443,27 +343,30 @@ Turma.belongsTo(Unidade);
 Turma.belongsTo(Curso);
 Curso.hasMany(Turma);
 
-Inscricao.belongsTo(Candidato);
 Inscricao.belongsTo(Turma);
+Inscricao.belongsTo(Candidato);
 Candidato.hasMany(Inscricao);
 Turma.hasMany(Inscricao);
+
+SolicitacoesMatricula.belongsTo(Candidato)
+SolicitacoesMatricula.belongsTo(Turma)
+SolicitacoesMatricula.belongsTo(Unidade)
+SolicitacoesMatricula.belongsTo(Inscricao)
+
+Turma.hasMany(SolicitacoesMatricula)
+Unidade.hasMany(SolicitacoesMatricula)
+Candidato.hasMany(SolicitacoesMatricula)
+Inscricao.hasOne(SolicitacoesMatricula)
 
 module.exports = {
   Administrador,
   PermissoesAdmin,
-  AdminUnidade,
-
   Curso,
   Turma,
   Unidade,
   Candidato,
-
   Inscricao,
-  Tema_redacao,
-  Questoes,
-  Documentos,
-
-  Inscricao,
+  SolicitacoesMatricula
 }
 
 /*async function sync () {

@@ -19,7 +19,6 @@ app.post('/syncDB', async (req, res) => {
   
   const { force } = req.body;
   let params = {};
-
   if (force) {
     params.force = true
   } else {
@@ -40,3 +39,7 @@ app.post('/syncDB', async (req, res) => {
 app.listen(process.env['PORT'], () => {
   console.log(`Smart Owl API is running on port ${process.env['PORT']}`);
 });
+
+
+
+
